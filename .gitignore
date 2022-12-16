@@ -1,0 +1,20 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/Adapter.Api/bin/Debug/net7.0
+/Adapter.Api/obj
+/Adapter.Api/appsettings.json
+/Adapter.Api.Tests/bin/Debug/net7.0
+/Adapter.Api.Tests/obj
+/Adapter.SQLServer/bin/Debug/net7.0
+/Adapter.SQLServer/obj
+/Adapter.SQLServer.Tests/bin/Debug/net7.0
+/Adapter.SQLServer.Tests/obj
+/Core/bin/Debug/net7.0
+/Core/obj
+/Core.Tests/bin/Debug/net7.0
+/Core.Tests/obj
+/Adapter.Api.Tests/bin/Release/net7.0
+/Core.Tests/bin/Release/net7.0
