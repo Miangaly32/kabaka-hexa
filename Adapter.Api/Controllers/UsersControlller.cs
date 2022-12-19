@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Core.Models;
 using Core.Interfaces.Port.Api;
 
-namespace Kabaka_Api.Controllers;
+namespace Adapter.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]

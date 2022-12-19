@@ -7,6 +7,7 @@ namespace Adapter.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
+[Authorize]
 public class AddCategoryController : ControllerBase
 {
     private readonly IAddCategory _addCategory;

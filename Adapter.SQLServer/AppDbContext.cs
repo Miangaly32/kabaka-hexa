@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Core.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace Adapter.SQLServer;
 
-public class AppDbContext : DbContext
+public class AppDbContext : IdentityUserContext<IdentityUser>
 {
     public DbSet<Category> Categories { get; set; }
 
