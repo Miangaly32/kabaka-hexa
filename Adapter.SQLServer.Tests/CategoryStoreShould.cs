@@ -10,12 +10,12 @@ public class CategoryStoreShould
     public async Task AddCategoryAsync()
     {
         var context = new AppDbContextFactory().CreateDbContext(new string[] {} );
-        var repository = new AddCategoryRepository(context);
+        var repository = new CategoryRepository(context);
 
         var category = new Category();
         category.Name = "Viande";
 
-        var result = await repository.CreateCategoryAsync(category);
+        var result = await repository.CreateAsync(category);
 
         Assert.True(result);
 
