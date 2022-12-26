@@ -10,9 +10,9 @@ namespace Core.Interfaces.Port.Api;
 
 public interface IIngredientService
 {
-    Task<Ingredient> AddAsync(IngredientRequest request);
-    Task<List<IngredientResponse>> GetAllAsync();
-    Task<IngredientResponse> GetByIdAsync(int id);
-    Task<Ingredient> UpdateAsync(IngredientRequest ingredient);
+    Task<GetIngredientDto> AddAsync(AddIngredientDto request);
+    Task<List<GetIngredientDto>> GetAllAsync();
+    Task<GetIngredientDto> GetByIdAsync(int id);
+    Task<GetIngredientDto> UpdateAsync(UpdateIngredientDto ingredient);
     Task DeleteAsync(int id);
 }

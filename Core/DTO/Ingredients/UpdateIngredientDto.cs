@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace Core.DTO.Ingredients;
 
-public class IngredientRequest
+public class UpdateIngredientDto
 {
+    [Required]
     public int Id { get; set; }
     [Required]
     public string Name { get; set; }

@@ -19,7 +19,7 @@ public class IngredientsController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddAction(IngredientRequest request)
+    public async Task<IActionResult> AddAction(AddIngredientDto request)
     {
         var ingredient = await _ingredientService.AddAsync(request);
         return Created($"/Ingredients/{ingredient.Id}", ingredient);
@@ -46,7 +46,7 @@ public class IngredientsController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateAction(int id, IngredientRequest request)
+    public async Task<IActionResult> UpdateAction(int id, UpdateIngredientDto request)
     {
         if (id != request.Id)
             return BadRequest();

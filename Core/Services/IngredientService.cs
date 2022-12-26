@@ -14,7 +14,7 @@ public class IngredientService : IIngredientService
         _repository = repository;
     }
 
-    public async Task<Ingredient> AddAsync(IngredientRequest request)
+    public async Task<GetIngredientDto> AddAsync(AddIngredientDto request)
     {
         var ingredient = new Ingredient
         {
@@ -23,7 +23,14 @@ public class IngredientService : IIngredientService
             CategoryId = request.CategoryId
         };
         await _repository.CreateAsync(ingredient);
-        return ingredient;
+
+        var response = new GetIngredientDto();
+        response.Id = ingredient.Id;
+        response.Name = ingredient.Name;
+        response.Color = ingredient.Color;
+        response.Category = ingredient.Category;
+
+        return response;
     }
 
     public async Task DeleteAsync(int id)
@@ -31,13 +38,13 @@ public class IngredientService : IIngredientService
         await _repository.DeleteAsync(id);
     }
 
-    public async Task<List<IngredientResponse>> GetAllAsync()
+    public async Task<List<GetIngredientDto>> GetAllAsync()
     {
         var ingredients = await _repository.GetAllAsync();
-        var responses = new List<IngredientResponse>();
+        var responses = new List<GetIngredientDto>();
         ingredients.ForEach(i =>
         {
-            var response = new IngredientResponse();
+            var response = new GetIngredientDto();
             response.Id = i.Id;
             response.Name = i.Name;
             response.Color = i.Color;
@@ -47,13 +54,13 @@ public class IngredientService : IIngredientService
         return responses;
     }
 
-    public async Task<IngredientResponse> GetByIdAsync(int id)
+    public async Task<GetIngredientDto> GetByIdAsync(int id)
     {
         var ingredient = await _repository.GetByIdAsync(id);
         if (ingredient == null)
             throw new Exception("Ingredient not found");
 
-        var response = new IngredientResponse();
+        var response = new GetIngredientDto();
         response.Id = ingredient.Id;
         response.Name = ingredient.Name;
         response.Color = ingredient.Color;
@@ -61,7 +68,7 @@ public class IngredientService : IIngredientService
         return response;
     }
 
-    public async Task<Ingredient> UpdateAsync(IngredientRequest request)
+    public async Task<GetIngredientDto> UpdateAsync(UpdateIngredientDto request)
     {
         var ingredient = new Ingredient
         {
@@ -70,6 +77,14 @@ public class IngredientService : IIngredientService
             Color = request.Color,
             CategoryId = request.CategoryId
         };
-        return await _repository.UpdateAsync(ingredient);
+        ingredient = await _repository.UpdateAsync(ingredient);
+
+        var response = new GetIngredientDto();
+        response.Id = ingredient.Id;
+        response.Name = ingredient.Name;
+        response.Color = ingredient.Color;
+        response.Category = ingredient.Category;
+
+        return response;
     }
 }

@@ -1,5 +1,4 @@
-﻿using Core.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,10 +7,12 @@ using System.Threading.Tasks;
 
 namespace Core.DTO.Ingredients;
 
-public class IngredientResponse
+public class AddIngredientDto
 {
-    public int Id { get; set; }
+    [Required]
     public string Name { get; set; }
+    [Required]
     public string Color { get; set; }
-    public Category Category { get; set; }
+    [Required]
+    public int CategoryId { get; set; }
 }
