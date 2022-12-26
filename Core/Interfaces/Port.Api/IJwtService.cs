@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Core.Models;
+using Core.DTO.Users;
 
 namespace Core.Interfaces.Port.Api;
 

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Core.Models;
 using Core.Interfaces.Port.Api;
+using Core.DTO.Users;
 
 namespace Adapter.Api.Controllers;
 

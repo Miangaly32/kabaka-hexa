@@ -8,6 +8,7 @@ namespace Adapter.SQLServer;
 public class AppDbContext : IdentityUserContext<IdentityUser>
 {
     public DbSet<Category> Categories { get; set; }
+    public DbSet<Ingredient> Ingredients { get; set; }
 
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
