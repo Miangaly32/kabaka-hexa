@@ -1,4 +1,5 @@
-﻿using Core.DTO.Ingredients;
+﻿using AutoMapper;
+using Core.DTO.Ingredients;
 using Core.Interfaces.Port.Api;
 using Core.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -12,10 +13,10 @@ namespace Adapter.Api.Controllers;
 public class IngredientsController : ControllerBase
 {
     private readonly IIngredientService _ingredientService;
-
+    
     public IngredientsController(IIngredientService ingredientService)
     {
-        this._ingredientService = ingredientService;
+        _ingredientService = ingredientService;
     }
 
     [HttpPost]
