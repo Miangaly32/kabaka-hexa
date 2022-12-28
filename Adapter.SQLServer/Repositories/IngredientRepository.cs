@@ -45,13 +45,17 @@ public class IngredientRepository : IIngredientRepository
 
     public async Task<List<Ingredient>> GetAllAsync()
     {
-        return await context.Ingredients.Include(i => i.Category).ToListAsync();
+        return await context.Ingredients
+                        .Include(i => i.Category)
+                        .Include(i => i.Color)
+                        .ToListAsync();
     }
 
     public async Task<Ingredient?> GetByIdAsync(int id)
     {
         return await context.Ingredients
                         .Include(i => i.Category)
+                        .Include(i => i.Color)
                         .FirstOrDefaultAsync(i => i.Id == id);
     }
 

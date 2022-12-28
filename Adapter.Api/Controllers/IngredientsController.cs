@@ -1,7 +1,5 @@
-﻿using AutoMapper;
-using Core.DTO.Ingredients;
+﻿using Core.DTO.Ingredients;
 using Core.Interfaces.Port.Api;
-using Core.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -64,7 +62,7 @@ public class IngredientsController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteTodoItem(int id)
+    public async Task<IActionResult> DeleteAction(int id)
     {
         await _ingredientService.DeleteAsync(id);
         return NoContent();

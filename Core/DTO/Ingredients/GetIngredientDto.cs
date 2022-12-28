@@ -12,6 +12,6 @@ public class GetIngredientDto
 {
     public int Id { get; set; }
     public string Name { get; set; }
-    public string Color { get; set; }
+    public Color Color { get; set; }
     public Category Category { get; set; }
 }

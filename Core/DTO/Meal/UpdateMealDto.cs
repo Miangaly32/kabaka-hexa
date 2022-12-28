@@ -1,15 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Core.DTO.Ingredients;
+namespace Core.DTO.Meal;
 
-public class UpdateIngredientDto
+public class UpdateMealDto
 {
     [Required]
     public int Id { get; set; }
     [Required]
     public string Name { get; set; }
     [Required]
-    public int ColorId { get; set; }
+    public List<int> IngredientsIds { get; set; }
     [Required]
-    public int CategoryId { get; set; }
+    public string Description { get; set; }
 }

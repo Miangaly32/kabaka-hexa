@@ -4,6 +4,7 @@ using Adapter.SQLServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Adapter.SQLServer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221227143217_createMigrations")]
+    partial class createMigrations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,34 +56,7 @@ namespace Adapter.SQLServer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Colors");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Rouge"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Vert"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Jaune"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Orange"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Blanc"
-                        });
+                    b.ToTable("Color");
                 });
 
             modelBuilder.Entity("Core.Models.Ingredient", b =>
@@ -108,105 +84,6 @@ namespace Adapter.SQLServer.Migrations
                     b.HasIndex("ColorId");
 
                     b.ToTable("Ingredients");
-                });
-
-            modelBuilder.Entity("Core.Models.IngredientQuantity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("IngredientId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MealId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UnitId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IngredientId");
-
-                    b.HasIndex("MealId");
-
-                    b.HasIndex("UnitId");
-
-                    b.ToTable("IngredientQuantities");
-                });
-
-            modelBuilder.Entity("Core.Models.Meal", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Meals");
-                });
-
-            modelBuilder.Entity("Core.Models.Unit", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Symbol")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Units");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Kilogramme",
-                            Symbol = "kg"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Piece",
-                            Symbol = "pcs"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Litre",
-                            Symbol = "l"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Millilitre",
-                            Symbol = "ml"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
@@ -359,29 +236,6 @@ namespace Adapter.SQLServer.Migrations
                     b.Navigation("Color");
                 });
 
-            modelBuilder.Entity("Core.Models.IngredientQuantity", b =>
-                {
-                    b.HasOne("Core.Models.Ingredient", "Ingredient")
-                        .WithMany()
-                        .HasForeignKey("IngredientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Core.Models.Meal", null)
-                        .WithMany("Ingredients")
-                        .HasForeignKey("MealId");
-
-                    b.HasOne("Core.Models.Unit", "Unit")
-                        .WithMany()
-                        .HasForeignKey("UnitId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Ingredient");
-
-                    b.Navigation("Unit");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
@@ -407,11 +261,6 @@ namespace Adapter.SQLServer.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Core.Models.Meal", b =>
-                {
-                    b.Navigation("Ingredients");
                 });
 #pragma warning restore 612, 618
         }

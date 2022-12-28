@@ -4,6 +4,7 @@ using Adapter.SQLServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Adapter.SQLServer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221227150524_addUnitSymbol")]
+    partial class addUnitSymbol
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -118,25 +121,25 @@ namespace Adapter.SQLServer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("IngredientId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("MealId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Quantity")
+                    b.Property<int>("ingredientId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UnitId")
+                    b.Property<int>("quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("unitId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IngredientId");
-
                     b.HasIndex("MealId");
 
-                    b.HasIndex("UnitId");
+                    b.HasIndex("ingredientId");
+
+                    b.HasIndex("unitId");
 
                     b.ToTable("IngredientQuantities");
                 });
@@ -181,32 +184,6 @@ namespace Adapter.SQLServer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Units");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Kilogramme",
-                            Symbol = "kg"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Piece",
-                            Symbol = "pcs"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Litre",
-                            Symbol = "l"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Millilitre",
-                            Symbol = "ml"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
@@ -361,25 +338,25 @@ namespace Adapter.SQLServer.Migrations
 
             modelBuilder.Entity("Core.Models.IngredientQuantity", b =>
                 {
-                    b.HasOne("Core.Models.Ingredient", "Ingredient")
-                        .WithMany()
-                        .HasForeignKey("IngredientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Core.Models.Meal", null)
                         .WithMany("Ingredients")
                         .HasForeignKey("MealId");
 
-                    b.HasOne("Core.Models.Unit", "Unit")
+                    b.HasOne("Core.Models.Ingredient", "ingredient")
                         .WithMany()
-                        .HasForeignKey("UnitId")
+                        .HasForeignKey("ingredientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Ingredient");
+                    b.HasOne("Core.Models.Unit", "unit")
+                        .WithMany()
+                        .HasForeignKey("unitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Unit");
+                    b.Navigation("ingredient");
+
+                    b.Navigation("unit");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>

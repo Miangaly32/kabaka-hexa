@@ -16,7 +16,7 @@ public class CategoriesController : ControllerBase
 
     public CategoriesController(ICategoryService categoryService)
     {
-        this._categoryService = categoryService;
+        _categoryService = categoryService;
     }
 
     [HttpPost]
@@ -48,7 +48,7 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteTodoItem(int id)
+    public async Task<IActionResult> DeleteAction(int id)
     {
         await _categoryService.DeleteAsync(id);
         return NoContent();
