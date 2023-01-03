@@ -17,6 +17,7 @@ public class AutoMapperProfile : Profile
         CreateMap<UpdateMealDto, Meal>();
         CreateMap<Ingredient, GetIngredientDto >();
         CreateMap<Meal, GetMealDto >();
+        CreateMap<Meal, GetMealDto >().ReverseMap();
         CreateMap<IngredientQuantity, GetIngredientQuantityDto >();
     }
 }

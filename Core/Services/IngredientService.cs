@@ -1,9 +1,7 @@
-﻿using AutoMapper;
-using Core.DTO.Ingredients;
+﻿using Core.DTO.Ingredients;
 using Core.Interfaces.Port.Api;
 using Core.Interfaces.Repositories;
 using Core.Models;
-using Microsoft.OpenApi.Expressions;
 
 namespace Core.Services;
 

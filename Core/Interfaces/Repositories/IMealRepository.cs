@@ -8,6 +8,6 @@ public interface IMealRepository
     Task<List<Meal>> GetAllAsync();
     Task<Meal> GetByIdAsync(int id);
     Task<Meal> UpdateAsync(Meal meal);
-
+    Task<List<IngredientQuantity>> GetIngredientsAsync(int mealId);
     Task DeleteAsync(int id);
 }

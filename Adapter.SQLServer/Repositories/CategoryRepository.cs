@@ -1,6 +1,5 @@
 ﻿using Core.Interfaces.Repositories;
 using Core.Models;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace Adapter.SQLServer.Repositories;

@@ -1,5 +1,6 @@
 ﻿using Core.DTO.Meal;
 using Core.Interfaces.Port.Api;
+using Core.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +17,6 @@ public class MealsController : ControllerBase
     {
         _mealService = mealService;
     }
-
 
     [HttpPost]
     public async Task<IActionResult> AddAction(AddMealDto request)
@@ -69,6 +69,20 @@ public class MealsController : ControllerBase
         {
             await _mealService.DeleteAsync(id);
             return NoContent();
+        }
+        catch (Exception ex)
+        {
+            return Problem(ex.Message);
+        }
+    }
+
+    [HttpGet("Ingredients/{id}")]
+    public async Task<IActionResult> GetIngredients(int id)
+    {
+        try
+        {
+            Console.Write(id);
+            return Ok(await _mealService.GetIngredients(id));
         }
         catch (Exception ex)
         {

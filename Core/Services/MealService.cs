@@ -1,5 +1,4 @@
-﻿using Core.DTO.Ingredients;
-using Core.DTO.Meal;
+﻿using Core.DTO.Meal;
 using Core.Interfaces.Port.Api;
 using Core.Interfaces.Repositories;
 using Core.Models;
@@ -41,6 +40,11 @@ public class MealService : IMealService
             throw new Exception("Ingredient not found");
 
         return Mapping.Mapper.Map<GetMealDto>(meal);
+    }
+
+    public async Task<List<IngredientQuantity>> GetIngredients(int mealId)
+    {
+        return await _repository.GetIngredientsAsync(mealId);
     }
 
     public async Task<GetMealDto> UpdateAsync(UpdateMealDto request)

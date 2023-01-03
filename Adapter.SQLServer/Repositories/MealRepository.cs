@@ -32,7 +32,6 @@ public class MealRepository : IMealRepository
         var meal = await context.Meals.Include(m => m.Ingredients).FirstAsync(m => m.Id == id);
         context.Remove(meal);
         await context.SaveChangesAsync();
-
     }
 
     public async Task<List<Meal>> GetAllAsync()
@@ -44,6 +43,18 @@ public class MealRepository : IMealRepository
     {
         return await context.Meals.FirstOrDefaultAsync(i => i.Id == id);
     }
+
+     public async Task<List<IngredientQuantity>> GetIngredientsAsync(int mealId)
+     {
+        return await context.IngredientQuantities
+                        .Include(i => i.Unit)
+                        .Include(i => i.Ingredient)
+                            .ThenInclude(ingredient => ingredient.Category)
+                        .Include(i => i.Ingredient)
+                            .ThenInclude(ingredient => ingredient.Color)
+                        .Where(i => i.MealId.Equals(mealId))
+                        .ToListAsync();
+     }
 
     public async Task<Meal> UpdateAsync(Meal meal)
     {

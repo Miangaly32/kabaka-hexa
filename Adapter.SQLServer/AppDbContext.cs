@@ -13,6 +13,7 @@ public class AppDbContext : IdentityUserContext<IdentityUser>
     public DbSet<Meal> Meals { get; set; }
     public DbSet<IngredientQuantity> IngredientQuantities { get; set; }
     public DbSet<Unit> Units { get; set; }
+    public DbSet<MealHistory> MealHistories { get; set; }
 
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
