@@ -15,22 +15,15 @@ public class IngredientRepository : IIngredientRepository
 
     public async Task<bool> CreateAsync(Ingredient ingredient)
     {
-        try
+        var category = await context.Categories.FindAsync(ingredient.CategoryId);
+        if (category == null)
         {
-            var category = await context.Categories.FindAsync(ingredient.CategoryId);
-            if (category == null)
-            {
-                throw new Exception("Category not found");
-            }
-            ingredient.Category = category;
-            context.Add(ingredient);
-            await context.SaveChangesAsync();
-            return true;
+            throw new Exception("Category not found");
         }
-        catch (Exception)
-        {
-            return false;
-        }
+        ingredient.Category = category;
+        context.Add(ingredient);
+        await context.SaveChangesAsync();
+        return true;
     }
 
     public async Task DeleteAsync(int id)
@@ -38,7 +31,6 @@ public class IngredientRepository : IIngredientRepository
         var ingredient = await context.Ingredients.FindAsync(id);
         context.Remove(ingredient);
         await context.SaveChangesAsync();
-
     }
 
     public async Task<List<Ingredient>> GetAllAsync()

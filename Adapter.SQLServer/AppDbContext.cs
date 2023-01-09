@@ -14,6 +14,7 @@ public class AppDbContext : IdentityUserContext<IdentityUser>
     public DbSet<IngredientQuantity> IngredientQuantities { get; set; }
     public DbSet<Unit> Units { get; set; }
     public DbSet<MealHistory> MealHistories { get; set; }
+    public DbSet<MealIngredients> MealIngredients { get; set; }
 
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
@@ -22,6 +23,11 @@ public class AppDbContext : IdentityUserContext<IdentityUser>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+        modelBuilder
+          .Entity<MealIngredients>()
+          .ToView("MealIngredients")
+          .HasNoKey();
+
         modelBuilder.Entity<Color>().HasData(
             new Color
             {

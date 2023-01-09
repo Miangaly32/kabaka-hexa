@@ -15,16 +15,9 @@ public class CategoryRepository : ICategoryRepository
 
     public async Task<bool> CreateAsync(Category category)
     {
-        try
-        {
-            context.Add(category);
-            await context.SaveChangesAsync();
-            return true;
-        }
-        catch (Exception)
-        {
-            return false;
-        }
+        context.Add(category);
+        await context.SaveChangesAsync();
+        return true;
     }
 
     public async Task DeleteAsync(int id)
@@ -32,7 +25,6 @@ public class CategoryRepository : ICategoryRepository
         var category = await context.Categories.FindAsync(id);
         context.Remove(category);
         await context.SaveChangesAsync();
-
     }
 
     public async Task<List<Category>> GetAllAsync()

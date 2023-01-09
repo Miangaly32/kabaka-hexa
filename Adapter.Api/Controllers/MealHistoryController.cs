@@ -2,6 +2,7 @@
 using Core.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq.Expressions;
 
 namespace Adapter.Api.Controllers;
 
@@ -20,6 +21,13 @@ public class MealHistoryController : ControllerBase
     [HttpGet("MealOfTheDay")]
     public async Task<IActionResult> GetMealOfTheDay()
     {
-        return Ok(await _service.GetByDate(DateTime.Now));
+        try
+        {
+            return Ok(await _service.GetByDate(DateTime.Today));
+        }
+        catch (Exception ex)
+        {
+            return Problem(ex.Message);
+        }
     }
 }

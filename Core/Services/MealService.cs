@@ -42,7 +42,7 @@ public class MealService : IMealService
         return Mapping.Mapper.Map<GetMealDto>(meal);
     }
 
-    public async Task<List<IngredientQuantity>> GetIngredients(int mealId)
+    public async Task<List<MealIngredients>> GetIngredients(int mealId)
     {
         return await _repository.GetIngredientsAsync(mealId);
     }

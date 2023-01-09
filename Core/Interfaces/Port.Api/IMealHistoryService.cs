@@ -1,5 +1,4 @@
 ﻿using Core.DTO.Meal;
-using Core.Models;
 
 namespace Core.Interfaces.Port.Api;
 

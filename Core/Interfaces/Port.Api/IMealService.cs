@@ -9,6 +9,6 @@ public interface IMealService
     Task<List<GetMealDto>> GetAllAsync();
     Task<GetMealDto> GetByIdAsync(int id);
     Task<GetMealDto> UpdateAsync(UpdateMealDto meal);
-    Task<List<IngredientQuantity>> GetIngredients(int mealId);
+    Task<List<MealIngredients>> GetIngredients(int mealId);
     Task DeleteAsync(int id);
 }

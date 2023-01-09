@@ -4,6 +4,7 @@ using Adapter.SQLServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Adapter.SQLServer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230106130951_CreateMealIngredientsView")]
+    partial class CreateMealIngredientsView
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,7 +39,7 @@ namespace Adapter.SQLServer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("Core.Models.Color", b =>
@@ -53,7 +56,7 @@ namespace Adapter.SQLServer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Colors", (string)null);
+                    b.ToTable("Colors");
 
                     b.HasData(
                         new
@@ -107,7 +110,7 @@ namespace Adapter.SQLServer.Migrations
 
                     b.HasIndex("ColorId");
 
-                    b.ToTable("Ingredients", (string)null);
+                    b.ToTable("Ingredients");
                 });
 
             modelBuilder.Entity("Core.Models.IngredientQuantity", b =>
@@ -138,7 +141,7 @@ namespace Adapter.SQLServer.Migrations
 
                     b.HasIndex("UnitId");
 
-                    b.ToTable("IngredientQuantities", (string)null);
+                    b.ToTable("IngredientQuantities");
                 });
 
             modelBuilder.Entity("Core.Models.Meal", b =>
@@ -159,7 +162,7 @@ namespace Adapter.SQLServer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Meals", (string)null);
+                    b.ToTable("Meals");
                 });
 
             modelBuilder.Entity("Core.Models.MealHistory", b =>
@@ -180,7 +183,7 @@ namespace Adapter.SQLServer.Migrations
 
                     b.HasIndex("MealId");
 
-                    b.ToTable("MealHistories", (string)null);
+                    b.ToTable("MealHistories");
                 });
 
             modelBuilder.Entity("Core.Models.Unit", b =>
@@ -201,7 +204,7 @@ namespace Adapter.SQLServer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Units", (string)null);
+                    b.ToTable("Units");
 
                     b.HasData(
                         new

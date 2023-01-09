@@ -8,11 +8,11 @@ namespace Core.Services;
 public class MealHistoryService : IMealHistoryService
 {
     private readonly IMealHistoryRepository _repository;
-    private readonly IMealService _mealService;
-    public MealHistoryService(IMealHistoryRepository mealHistoryRepository, IMealService mealService)
+    private readonly IMealRepository _mealRepository;
+    public MealHistoryService(IMealHistoryRepository mealHistoryRepository, IMealRepository mealRepository)
     {
         _repository = mealHistoryRepository;
-        _mealService = mealService;
+        _mealRepository = mealRepository;
     }
 
     public int Count()
@@ -22,33 +22,32 @@ public class MealHistoryService : IMealHistoryService
 
     public async Task<GetMealDto> GetByDate(DateTime date)
     {
-        var meals = await _mealService.GetAllAsync();
-        var history = new MealHistory();
-        var mealOfTheDay = meals.First();
-        
-        var mealYesterday = await _repository.GetByDay(date.AddDays(-1));
-        if (mealYesterday != null)
-        {
-            //appliquer les regles par rapport a hier
-            var ingredientQuantities = await _mealService.GetIngredients(mealYesterday.MealId);
+        var mealHistoryOfTheDay = await _repository.GetHistoryByDate(date.Date);
 
-            // pas les memes ingredients
-            // color
-            // category : viande, poisson, fruit de mer, volaille
+        if (mealHistoryOfTheDay != null)
+        {
+            return Mapping.Mapper.Map<GetMealDto>(mealHistoryOfTheDay.Meal);
+        }
+            
+        if (_mealRepository.Count() == 0 )
+        {
             throw new Exception("Insufficient data");
         }
 
-        history.Meal = Mapping.Mapper.Map<Meal>(mealOfTheDay);
-        history.Date = date;
-        try
+        var mealOfTheDay = await _mealRepository.GetOneAsync();
+
+        var historyEmpty = _repository.Count() == 0;
+        if (!historyEmpty)
         {
-            await _repository.AddAsync(history);
-            return Mapping.Mapper.Map<GetMealDto>(mealOfTheDay);
+            mealOfTheDay = await _mealRepository.getMealApplyingRules(date);
         }
-        catch
-        {
-            throw;
-        }
+
+        var history = new MealHistory();
+        history.Date = date.Date;
+        history.MealId = mealOfTheDay.Id;
+        await _repository.AddAsync(history);
+       
+        return Mapping.Mapper.Map<GetMealDto>(mealOfTheDay);
     }
 
     public Task<List<GetMealDto>> GetByWeek(DateTime date)
