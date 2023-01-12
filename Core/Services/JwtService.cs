@@ -11,7 +11,7 @@ namespace Core.Services;
 
 public class JwtService : IJwtService
 {
-    private const int EXPIRATION_MINUTES = 1;
+    private const int EXPIRATION_MINUTES = 60;
 
     private readonly IConfiguration _configuration;
 
